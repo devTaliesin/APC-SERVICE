@@ -1,0 +1,13 @@
+services:
+  apc_servicd:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"  # NestJS 서버와의 연결에 필요한 포트
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
