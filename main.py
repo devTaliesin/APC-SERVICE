@@ -11,24 +11,23 @@ def connect():
   
 @sio.event
 def videoSource(data):
-  print(data)
-  rtsp = data['rtsp']
-  onvif = data['onvif']
-  p = Process(target=videoProcess, args=[rtsp, onvif])
-  processes[f'{sio.sid}'] = p
-  p.start()
+  print(data, flush=True)
+  for videoSource in data:
+    p = Process(target=videoProcess.videoProcess, args=[videoSource])
+    processes[f'{videoSource["id"]}'] = p
+    p.start()
   
 @sio.event
 def disconnect():
-  p = processes[f'{sio.sid}']
-  p.close()
+  for p in processes.values():
+    p.close()
   print('disconnect')
   
 client_type = "service_master"
 onvif = ""
 quality = ""
-NESTJS_SERVER_URL = f'http://localhost:3000/stream?type={client_type}&onvif={onvif}&quality={quality}'
-  
+NESTJS_SERVER_URL = f'http://192.168.0.18:3000/websocket?type={client_type}&onvif={onvif}&quality={quality}'
+print(NESTJS_SERVER_URL)
 sio.connect(NESTJS_SERVER_URL)
 
 sio.wait()

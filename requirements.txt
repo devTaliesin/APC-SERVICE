@@ -3,5 +3,7 @@ numpy  # YOLO와 OpenCV에서 사용
 python-socketio  # Socket.IO Client
 PyGObject  # GStreamer와의 연동을 위해 필요
 httpx  # HTTP 클라이언트
-torch  # YOLO와 ArcFace 모델 실행을 위해 필요
-gdown  # ArcFace 모델 다운로드 시 사용 가능
+requests
+websocket-client
+# torch  # YOLO와 ArcFace 모델 실행을 위해 필요
+# gdown  # ArcFace 모델 다운로드 시 사용 가능
